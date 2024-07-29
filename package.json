@@ -1,6 +1,7 @@
 {
-  "displayName": "ECS Benchmark Core",
   "name": "ecs.benchmark.core",
+  "author": "Oleg 'cNoNim' Ageev",
+  "displayName": "ECS Benchmark Core",
   "version": "1.0.0",
   "description": "ECS Benchmark Core",
   "dependencies": {
@@ -11,5 +12,9 @@
     "com.unity.test-framework.performance": "3.0.3",
     "com.unity.modules.imgui": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cNoNim/ecs-benchmark-core.git"
   }
 }
