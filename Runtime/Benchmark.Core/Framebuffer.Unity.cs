@@ -9,19 +9,17 @@ namespace Benchmark.Core
 
 public struct Framebuffer : IDisposable
 {
-	private          NativeArray<uint>     _buffer;
-	private          NativeArray<DrawCall> _draws;
-	private readonly int                   _width;
-	private readonly int                   _height;
-	private          int                   _drawCount;
+	private          NativeArray<uint>    _buffer;
+	private          NativeList<DrawCall> _draws;
+	private readonly int                  _width;
+	private readonly int                  _height;
 
 	public Framebuffer(int width, int height, int capacity = 0)
 	{
-		_width     = width;
-		_height    = height;
-		_buffer    = new NativeArray<uint>(width * height, Allocator.Persistent);
-		_draws     = new NativeArray<DrawCall>(capacity, Allocator.Persistent);
-		_drawCount = 0;
+		_width  = width;
+		_height = height;
+		_buffer = new NativeArray<uint>(width * height, Allocator.Persistent);
+		_draws  = new NativeList<DrawCall>(capacity, Allocator.Persistent);
 	}
 
 	public ReadOnlySpan<uint> Buffer
@@ -31,7 +29,9 @@ public struct Framebuffer : IDisposable
 
 	public ReadOnlySpan<DrawCall> Draws
 	{
-		get => _draws.AsReadOnlySpan()[.._drawCount];
+		get =>
+			_draws.AsArray()
+				  .AsReadOnlySpan();
 	}
 
 	public uint HashCode
@@ -50,13 +50,14 @@ public struct Framebuffer : IDisposable
 		int y,
 		SpriteMask c)
 	{
-		if (_drawCount < _draws.Length)
-			_draws[_drawCount++] = new DrawCall(
-				tick,
-				id,
-				x,
-				y,
-				c);
+		if (_draws.Length < _draws.Capacity)
+			_draws.Add(
+				new DrawCall(
+					tick,
+					id,
+					x,
+					y,
+					c));
 		if (x < 0
 		 || x >= _width
 		 || y < 0
@@ -70,7 +71,6 @@ public struct Framebuffer : IDisposable
 	{
 		_buffer.Dispose();
 		_draws.Dispose();
-		_drawCount = 0;
 	}
 }
 
