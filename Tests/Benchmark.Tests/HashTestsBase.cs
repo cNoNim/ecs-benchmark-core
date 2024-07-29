@@ -8,7 +8,7 @@ using StableHash32 = Benchmark.Core.Hash.StableHash32;
 namespace Benchmark.Tests
 {
 
-public class HashTestsBase
+public abstract class HashTestsBase
 {
 	protected static void TestContexts(IEnumerable<IContext> contexts, int entityCount, int ticks)
 	{

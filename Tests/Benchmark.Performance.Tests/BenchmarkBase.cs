@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Benchmark.Core;
-using NUnit.Framework;
 using Unity.PerformanceTesting;
 using UnityEngine.Profiling;
 using static Benchmark.Core.Common;
@@ -11,21 +10,19 @@ namespace Benchmark.Performance.Tests
 
 public abstract class BenchmarkBase
 {
-	private readonly Recorder    _gcRecorder    = Recorder.Get("GC.Alloc");
-	private readonly SampleGroup _sampleGroup   = new("Time", SampleUnit.Microsecond);
-	private readonly SampleGroup _sampleGroupGC = new("GC.Alloc", SampleUnit.Undefined);
+	private static readonly Recorder    GCRecorder    = Recorder.Get("GC.Alloc");
+	private static readonly SampleGroup SampleGroup   = new("Time", SampleUnit.Microsecond);
+	private static readonly SampleGroup SampleGroupGC = new("GC.Alloc", SampleUnit.Undefined);
 
-	[SetUp]
-	public void Setup() =>
-		_gcRecorder.enabled = false;
-
-	protected IEnumerator Routine(
+	protected static IEnumerator Routine(
 		IContext context,
 		int entityCount,
 		int warmUpCount,
 		int measurementCount,
 		int iterationCount)
 	{
+		GCRecorder.enabled = false;
+
 		context.Setup(entityCount, new Framebuffer(FrameBufferWidth, FrameBufferHeight));
 
 		yield return null;
@@ -40,7 +37,7 @@ public abstract class BenchmarkBase
 		{
 			StartGCRecorder();
 
-			using (Measure.Scope(_sampleGroup))
+			using (Measure.Scope(SampleGroup))
 				for (var j = 0; j < iterationCount; j++)
 					context.Step(i);
 
@@ -51,18 +48,18 @@ public abstract class BenchmarkBase
 		context.Cleanup();
 	}
 
-	private void StartGCRecorder()
+	private static void StartGCRecorder()
 	{
 		GC.Collect();
 
-		_gcRecorder.enabled = false;
-		_gcRecorder.enabled = true;
+		GCRecorder.enabled = false;
+		GCRecorder.enabled = true;
 	}
 
-	private void EndGCRecorderAndMeasure(int iterations)
+	private static void EndGCRecorderAndMeasure(int iterations)
 	{
-		_gcRecorder.enabled = false;
-		Measure.Custom(_sampleGroupGC, (double) _gcRecorder.sampleBlockCount / iterations);
+		GCRecorder.enabled = false;
+		Measure.Custom(SampleGroupGC, (double) GCRecorder.sampleBlockCount / iterations);
 	}
 }
 
