@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark.Generator", "Benchmark.Generator\Benchmark.Generator.csproj", "{0380DE16-B8DD-42A1-BB99-B38665CEF286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark.Generator.Tests", "Benchmark.Generator.Tests\Benchmark.Generator.Tests.csproj", "{015FBF00-3DDD-4813-9281-585651854DF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mocks", "Mocks", "{23CC2F62-3E19-4339-912D-047947B52BAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark.Core.Mock", "Mocks\Benchmark.Core.Mock\Benchmark.Core.Mock.csproj", "{287EB303-E037-4EFD-ABBF-A871689C3D6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0380DE16-B8DD-42A1-BB99-B38665CEF286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0380DE16-B8DD-42A1-BB99-B38665CEF286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0380DE16-B8DD-42A1-BB99-B38665CEF286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0380DE16-B8DD-42A1-BB99-B38665CEF286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{015FBF00-3DDD-4813-9281-585651854DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{015FBF00-3DDD-4813-9281-585651854DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{015FBF00-3DDD-4813-9281-585651854DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{015FBF00-3DDD-4813-9281-585651854DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287EB303-E037-4EFD-ABBF-A871689C3D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287EB303-E037-4EFD-ABBF-A871689C3D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287EB303-E037-4EFD-ABBF-A871689C3D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287EB303-E037-4EFD-ABBF-A871689C3D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{287EB303-E037-4EFD-ABBF-A871689C3D6C} = {23CC2F62-3E19-4339-912D-047947B52BAF}
+	EndGlobalSection
+EndGlobal

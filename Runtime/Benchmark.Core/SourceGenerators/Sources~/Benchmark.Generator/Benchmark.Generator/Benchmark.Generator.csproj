@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Deterministic>True</Deterministic>
+        <EnforceExtendedAnalyzerRules>True</EnforceExtendedAnalyzerRules>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference ExcludeAssets="runtime" Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1"/>
+    </ItemGroup>
+
+    <Target Name="CustomAfterBuild" AfterTargets="Build">
+        <ItemGroup>
+            <_FilesToCopy Include="$(OutputPath)**\$(AssemblyName).dll"/>
+            <_FilesToCopy Condition=" '$(Configuration)' == 'Debug' " Include="$(OutputPath)**\$(AssemblyName).pdb"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(_FilesToCopy)" DestinationFolder="$(OutputPath)..\..\..\..\..\.."/>
+    </Target>
+
+</Project>

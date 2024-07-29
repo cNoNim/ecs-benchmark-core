@@ -1,0 +1,21 @@
+{
+    "name": "Benchmark.Performance.Tests",
+    "rootNamespace": "Benchmark.Performance.Tests",
+    "references": [
+        "Benchmark.Core",
+        "Unity.PerformanceTesting"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
