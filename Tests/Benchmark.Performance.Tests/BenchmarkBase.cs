@@ -6,7 +6,7 @@ using Unity.PerformanceTesting;
 using UnityEngine.Profiling;
 using static Benchmark.Core.Common;
 
-namespace Benchmark.Performance.Tests.Tests
+namespace Benchmark.Performance.Tests
 {
 
 public abstract class BenchmarkBase
