@@ -1,6 +1,6 @@
 namespace Benchmark.Core
 {
-	internal abstract class InternalContext : IContext
-	{
-	}
+
+internal abstract class InternalContext : IContext {}
+
 }

@@ -9,8 +9,9 @@ public class Tests
 {
 	[TestMethod]
 	public async Task Test() =>
-		await VerifyCS.VerifySourceGeneratorAsync(string.Empty,
+		await VerifyCS.VerifySourceGeneratorAsync(
+			string.Empty,
 			nameof(Test),
-			additionalAssembliesOverride: [typeof(IContext).Assembly],
+			[typeof(IContext).Assembly],
 			"BenchmarkContexts.g.cs");
 }

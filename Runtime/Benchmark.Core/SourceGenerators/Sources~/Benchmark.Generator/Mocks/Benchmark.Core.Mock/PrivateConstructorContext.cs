@@ -1,9 +1,9 @@
 namespace Benchmark.Core
 {
-	public class PrivateConstructorContext : AbstractContext
-	{
-		private PrivateConstructorContext()
-		{
-		}
-	}
+
+public class PrivateConstructorContext : AbstractContext
+{
+	private PrivateConstructorContext() {}
+}
+
 }

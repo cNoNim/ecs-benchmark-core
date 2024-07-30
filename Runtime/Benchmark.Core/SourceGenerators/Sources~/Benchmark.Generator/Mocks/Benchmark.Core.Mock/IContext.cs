@@ -1,6 +1,6 @@
 ﻿namespace Benchmark.Core
 {
-	public interface IContext
-	{
-	}
+
+public interface IContext {}
+
 }

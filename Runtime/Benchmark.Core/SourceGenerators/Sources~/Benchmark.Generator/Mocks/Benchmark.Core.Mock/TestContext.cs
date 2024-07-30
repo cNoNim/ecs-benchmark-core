@@ -1,6 +1,6 @@
 ﻿namespace Benchmark.Core
 {
-	public class TestContext : AbstractContext
-	{
-	}
+
+public class TestContext : AbstractContext {}
+
 }

@@ -12,8 +12,10 @@ public static class CSharpVerifierHelper
 	private static ImmutableDictionary<string, ReportDiagnostic> GetNullableWarningsFromCompiler()
 	{
 		string[] args = { "/warnaserror:nullable" };
-		var commandLineArguments = CSharpCommandLineParser.Default.Parse(args,
-			baseDirectory: Environment.CurrentDirectory, sdkDirectory: Environment.CurrentDirectory);
+		var commandLineArguments = CSharpCommandLineParser.Default.Parse(
+			args,
+			Environment.CurrentDirectory,
+			Environment.CurrentDirectory);
 		return commandLineArguments.CompilationOptions.SpecificDiagnosticOptions;
 	}
 }
