@@ -1,7 +1,6 @@
 #if UNITY_2020_3_OR_NEWER
 using System;
 using Benchmark.Core.Components;
-using Benchmark.Core.Hash;
 using Unity.Collections;
 
 namespace Benchmark.Core
@@ -32,11 +31,6 @@ public struct Framebuffer : IDisposable
 		get =>
 			_draws.AsArray()
 				  .AsReadOnlySpan();
-	}
-
-	public uint HashCode
-	{
-		get => StableHash32.Hash(0, _buffer);
 	}
 
 	public void Clear() =>

@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 using Benchmark.Core;
+using Benchmark.Core.Hash;
 using NUnit.Framework;
-using StableHash32 = Benchmark.Core.Hash.StableHash32;
 
 namespace Benchmark.Tests
 {
@@ -45,11 +44,11 @@ public abstract class HashTestsBase
 		context.Setup(entityCount, framebuffer);
 		try
 		{
-			Span<uint> hashes = stackalloc uint[ticks];
+			var hashCode = new StableHashCode();
 			for (var i = 0; i < ticks; i++)
 			{
 				context.Step(i);
-				hashes[i] = framebuffer.HashCode;
+				hashCode.Add(framebuffer.Buffer);
 			}
 
 			TestContext.Out.WriteLine(context.ToString());
@@ -63,7 +62,7 @@ public abstract class HashTestsBase
 					y,
 					c);
 			TestContext.Out.Write(sb.ToString());
-			var newHash = StableHash32.Hash(0, hashes);
+			var newHash = (uint) hashCode.ToHashCode();
 			if (hash != null)
 				Assert.That(newHash, Is.EqualTo(hash), context.ToString());
 			hash = newHash;

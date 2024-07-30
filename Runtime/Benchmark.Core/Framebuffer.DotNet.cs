@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Benchmark.Core.Components;
-using Benchmark.Core.Hash;
 
 namespace Benchmark.Core
 {
@@ -31,11 +30,6 @@ public readonly struct Framebuffer : IDisposable
 	public ReadOnlySpan<DrawCall> Draws
 	{
 		get => CollectionsMarshal.AsSpan(_draws);
-	}
-
-	public uint HashCode
-	{
-		get => StableHash32.Hash(0, _buffer);
 	}
 
 	public void Clear() =>
