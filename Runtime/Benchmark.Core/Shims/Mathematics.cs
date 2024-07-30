@@ -19,7 +19,9 @@ public readonly struct float2
 	}
 }
 
+#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
 public static class math
+#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static float2 clamp(float2 value, float2 lower, float2 upper)
