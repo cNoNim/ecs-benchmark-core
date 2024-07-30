@@ -1,7 +1,9 @@
 using System;
 using System.Runtime.CompilerServices;
+#if UNITY_2018_3_OR_NEWER
 using Unity.Mathematics;
 using UnityEngine;
+#endif
 
 namespace Benchmark.Core.Shims
 {

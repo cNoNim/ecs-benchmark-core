@@ -1,6 +1,7 @@
 #if !UNITY_2020_3_OR_NEWER
 using System;
 using Benchmark.Core.Components;
+using Benchmark.Core.Hash;
 
 namespace Benchmark.Core
 {
