@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Benchmark.Core;
@@ -28,6 +29,13 @@ public abstract class HashTestsBase
 			{
 				fail = true;
 				sb.AppendLine(assert.Message);
+			}
+			catch (Exception e)
+			{
+				fail = true;
+				sb.AppendLine(context.ToString());
+				sb.AppendLine(e.Message);
+				sb.AppendLine(e.StackTrace);
 			}
 
 		if (fail)
