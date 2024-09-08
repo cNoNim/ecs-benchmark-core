@@ -13,12 +13,12 @@ public static class Common
 	public const float Three             = 3.0f;
 	public const float Five              = 5.0f;
 	public const float Nine              = 9.0f;
-	public const float SpawnAreaMaxX     = 320.0f;
-	public const float SpawnAreaMaxY     = 240.0f;
-	public const float SpawnAreaMargin   = 100.0f;
+	public const float SpawnAreaMaxX     = 32.0f;
+	public const float SpawnAreaMaxY     = 24.0f;
+	public const float SpawnAreaMargin   = 10.0f;
 	public const int   FrameBufferWidth  = (int) (SpawnAreaMaxX + SpawnAreaMargin * Two);
 	public const int   FrameBufferHeight = (int) (SpawnAreaMaxY + SpawnAreaMargin * Two);
-	public const float AttackSpeed       = 40.0f;
+	public const float AttackSpeed       = 4.0f;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static int AttackTicks(float2 position, float2 targetPosition) =>
