@@ -28,6 +28,9 @@ public struct StableHashCode
 	public void Add(in ReadOnlySpan<uint> buffer) =>
 		Add(StableHash32.Hash(_seed, buffer));
 
+	public void Add(in ReadOnlySpan<int> buffer) =>
+		Add(StableHash32.Hash(_seed, buffer));
+
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void Add<T>(T value) =>
 		Add(value?.GetHashCode() ?? 0);

@@ -20,6 +20,7 @@ public readonly struct RandomGenerator
 	public int Random(ref int counter, int min, int max) =>
 		(int) Random(ref counter, (uint) (max - min)) + min;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public long Random(ref int counter, long max)
 	{
 		if (max < uint.MaxValue)
@@ -46,9 +47,11 @@ public readonly struct RandomGenerator
 	public double Random(ref int counter, double min, double max) =>
 		NextDouble(ref counter) * (max - min) + min;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private double NextDouble(ref int counter) =>
 		(NextState64(ref counter) >> 11) * (1.0 / (1ul << 53));
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private float NextFloat(ref int counter) =>
 		(NextState(ref counter) >> 8) * (1.0f / (1u << 24));
 

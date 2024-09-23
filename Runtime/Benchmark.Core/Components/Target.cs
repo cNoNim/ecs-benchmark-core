@@ -4,7 +4,7 @@ using Unity.Mathematics;
 namespace Benchmark.Core.Components
 {
 
-[DebuggerDisplay("<{Entity}:{Position}>")]
+[DebuggerDisplay("{Entity}")]
 public struct Target<TEntity>
 {
 	public TEntity Entity;
@@ -15,6 +15,9 @@ public struct Target<TEntity>
 		Entity   = entity;
 		Position = position.V;
 	}
+
+	public override string ToString() =>
+		$"{Entity}";
 }
 
 }

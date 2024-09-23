@@ -57,7 +57,7 @@ public class BenchmarkBehaviour : MonoBehaviour
 				State         = BenchmarkState.WarmUp;
 				StateProgress = (double) w / warmupCount;
 				context.Step(-1);
-				hashCode.Add(context.Framebuffer.Buffer);
+				hashCode.Add(context.Framebuffer.BufferSpan);
 				yield return null;
 			}
 
@@ -109,7 +109,7 @@ public class BenchmarkBehaviour : MonoBehaviour
 						systemUsedMemoryRecorder.LastValue    - systemUsedMemory);
 				}
 
-				hashCode.Add(context.Framebuffer.Buffer);
+				hashCode.Add(context.Framebuffer.BufferSpan);
 			}
 
 			StateProgress = 1.0;

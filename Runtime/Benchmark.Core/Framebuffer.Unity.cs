@@ -6,36 +6,38 @@ using Unity.Collections;
 namespace Benchmark.Core
 {
 
-public struct Framebuffer : IDisposable
+public struct Framebuffer
+	: IDisposable,
+	  IFramebuffer
 {
-	private          NativeArray<uint>    _buffer;
-	private          NativeList<DrawCall> _draws;
-	private readonly int                  _width;
-	private readonly int                  _height;
+	public readonly int                  Width;
+	public readonly int                  Height;
+	internal        NativeArray<int>     Buffer;
+	internal        NativeList<DrawCall> Draws;
 
 	public Framebuffer(int width, int height, int capacity = 0)
 	{
-		_width  = width;
-		_height = height;
-		_buffer = new NativeArray<uint>(width * height, Allocator.Persistent);
-		_draws  = new NativeList<DrawCall>(capacity, Allocator.Persistent);
+		Width  = width;
+		Height = height;
+		Buffer = new NativeArray<int>(width * height, Allocator.Persistent);
+		Draws  = new NativeList<DrawCall>(capacity, Allocator.Persistent);
 	}
 
-	public ReadOnlySpan<uint> Buffer
+	public ReadOnlySpan<int> BufferSpan
 	{
-		get => _buffer.AsReadOnlySpan();
+		get => Buffer.AsReadOnlySpan();
 	}
 
-	public ReadOnlySpan<DrawCall> Draws
+	public ReadOnlySpan<DrawCall> DrawsSpan
 	{
 		get =>
-			_draws.AsArray()
-				  .AsReadOnlySpan();
+			Draws.AsArray()
+				 .AsReadOnlySpan();
 	}
 
 	public void Clear() =>
-		_buffer.AsSpan()
-			   .Clear();
+		Buffer.AsSpan()
+			  .Clear();
 
 	public void Draw(
 		int tick,
@@ -44,8 +46,8 @@ public struct Framebuffer : IDisposable
 		int y,
 		SpriteMask c)
 	{
-		if (_draws.Length < _draws.Capacity)
-			_draws.Add(
+		if (Draws.Length < Draws.Capacity)
+			Draws.Add(
 				new DrawCall(
 					tick,
 					id,
@@ -53,18 +55,18 @@ public struct Framebuffer : IDisposable
 					y,
 					c));
 		if (x < 0
-		 || x >= _width
+		 || x >= Width
 		 || y < 0
-		 || y >= _height)
+		 || y >= Height)
 			return;
-		var index = x + y * _width;
-		_buffer[index] |= (uint) c;
+		var index = x + y * Width;
+		Buffer.AsSpan()[index] |= (int) c;
 	}
 
 	public void Dispose()
 	{
-		_buffer.Dispose();
-		_draws.Dispose();
+		Buffer.Dispose();
+		Draws.Dispose();
 	}
 }
 

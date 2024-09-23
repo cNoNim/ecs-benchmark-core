@@ -56,12 +56,12 @@ public abstract class HashTestsBase
 			for (var i = 0; i < ticks; i++)
 			{
 				context.Step(i);
-				hashCode.Add(framebuffer.Buffer);
+				hashCode.Add(framebuffer.BufferSpan);
 			}
 
 			TestContext.Out.WriteLine(context.ToString());
 			var sb = new StringBuilder();
-			foreach (var (tick, id, x, y, c) in framebuffer.Draws)
+			foreach (var (tick, id, x, y, c) in framebuffer.DrawsSpan)
 				sb.AppendFormat(
 					"{0:0000},{1},{2},{3},{4}\n",
 					tick,

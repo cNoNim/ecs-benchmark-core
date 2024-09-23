@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Benchmark.Core.Components;
 using Benchmark.Core.Random;
 using Unity.Mathematics;
@@ -91,6 +92,16 @@ public abstract class ContextBase : IContext
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void ApplyDamageSequential<TAttack>(ref Health health, in Damage damage, in TAttack attack)
+		where TAttack : IAttack =>
+		health.Hp += damage.Defence - attack.Damage;
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void ApplyDamageParallel<TAttack>(ref Health health, in Damage damage, in TAttack attack)
+		where TAttack : IAttack =>
+		Interlocked.Add(ref health.Hp, damage.Defence - attack.Damage);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void MovementSystemForEach(ref Position position, in Velocity velocity)
 	{
 		var pos = position.V;
@@ -119,12 +130,13 @@ public abstract class ContextBase : IContext
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void RenderSystemForEach(
-		Framebuffer framebuffer,
+	public static void RenderSystemForEach<TFramebuffer>(
+		in TFramebuffer framebuffer,
 		in Position position,
 		in Sprite sprite,
 		in Unit unit,
-		in Data data) =>
+		in Data data)
+		where TFramebuffer : IFramebuffer =>
 		framebuffer.Draw(
 			data.Tick,
 			unit.Id,

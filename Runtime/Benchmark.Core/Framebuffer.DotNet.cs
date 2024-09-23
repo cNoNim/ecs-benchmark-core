@@ -7,34 +7,36 @@ using Benchmark.Core.Components;
 namespace Benchmark.Core
 {
 
-public readonly struct Framebuffer : IDisposable
+public readonly struct Framebuffer
+	: IDisposable,
+	  IFramebuffer
 {
-	private readonly uint[]         _buffer;
-	private readonly List<DrawCall> _draws;
-	private readonly int            _width;
-	private readonly int            _height;
+	public readonly   int            Width;
+	public readonly   int            Height;
+	internal readonly int[]         Buffer;
+	internal readonly List<DrawCall> Draws;
 
 	public Framebuffer(int width, int height, int capacity = 0)
 	{
-		_width  = width;
-		_height = height;
-		_buffer = new uint[width * height];
-		_draws  = new List<DrawCall>(capacity);
+		Width  = width;
+		Height = height;
+		Buffer = new int[width * height];
+		Draws  = new List<DrawCall>(capacity);
 	}
 
-	public ReadOnlySpan<uint> Buffer
+	public ReadOnlySpan<int> BufferSpan
 	{
-		get => _buffer;
+		get => Buffer;
 	}
 
-	public ReadOnlySpan<DrawCall> Draws
+	public ReadOnlySpan<DrawCall> DrawsSpan
 	{
-		get => CollectionsMarshal.AsSpan(_draws);
+		get => CollectionsMarshal.AsSpan(Draws);
 	}
 
 	public void Clear() =>
-		_buffer.AsSpan()
-			   .Clear();
+		Buffer.AsSpan()
+			  .Clear();
 
 	public void Draw(
 		int tick,
@@ -43,8 +45,8 @@ public readonly struct Framebuffer : IDisposable
 		int y,
 		SpriteMask c)
 	{
-		if (_draws.Count < _draws.Capacity)
-			_draws.Add(
+		if (Draws.Count < Draws.Capacity)
+			Draws.Add(
 				new DrawCall(
 					tick,
 					id,
@@ -52,12 +54,12 @@ public readonly struct Framebuffer : IDisposable
 					y,
 					c));
 		if (x < 0
-		 || x >= _width
+		 || x >= Width
 		 || y < 0
-		 || y >= _height)
+		 || y >= Height)
 			return;
-		var index = x + y * _width;
-		_buffer[index] |= (uint) c;
+		var index = x + y * Width;
+		Buffer[index] |= (int) c;
 	}
 
 	public void Dispose() {}
